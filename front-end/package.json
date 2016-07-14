@@ -1,0 +1,30 @@
+{
+  "name": "pixeon-chat",
+  "version": "1.0.0",
+  "description": "Desafio Pixeon.",
+  "main": "chat.html",
+  "scripts": {
+    "test": "angular-chat-test.js"
+  },
+  "dependencies": {
+    "angular": ">= 1.4.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenlb/angularjs-chat.git#master"
+  },
+  "keywords": [
+    "angularjs",
+    "chat",
+    "ios",
+    "android",
+    "messaging",
+    "angular"
+  ],
+  "author": "Akauã S. da Costa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephenlb/angularjs-chat/issues"
+  },
+  "homepage": "http://angularjs.chat"
+}

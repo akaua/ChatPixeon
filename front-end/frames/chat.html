@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<link rel="stylesheet" type="text/css" href="../assets/libs/bootstrap-3.3.6-dist/css/bootstrap.css">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+    	<script src="../node_modules/angular-chat/angular-chat.js"></script>
+		<script type="text/javascript" src="../app/app.js"></script>
+		<script type="text/javascript" src="../app/chat.js"></script>
+		<script type="text/javascript" src="../app/controller/ChatController.js"/></script>
+		<script type="text/javascript" src="../app/controller/SignInController.js"/></script>
+		<!--<meta name="google-signin-scope" content="akaua3269@gmail.com">-->
+
+    	<meta name="google-signin-client_id" content="150680681386-ontmrute0pfnrp8kgtu5811kscepethd.apps.googleusercontent.com">
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+		<title>Pixeon - Desafio Chat</title>
+		
+	</head>
+	
+	<body style="padding-top:70px;" ng-app="ChatApp">
+		<!--<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">Pixeon <small>Chat</small></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<div type="button" class="btn btn-default navbar-btn" onclick="signOut()" data-theme="dark">Sign Out</div>
+					<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style=""></div> -->
+	<!--			</div>
+			</div>				
+		</nav>
+	-->
+		<div class="container" ng-controller="chat">
+			
+			<!--<div ng-repeat="message in messages">-->
+				<div class="list-group">
+  					<a class="list-group-item active" ng-repeat="message in messages">
+    					<h4 class="list-group-item-heading">{{ message.user.name }}</h4>
+    					<p class="list-group-item-text">{{ message.data }}</p>
+  					</a>
+				</div>
+				
+			<!--</div>{{ message.user.name }}:
+				{{ message.data }}-->
+			<form ng-submit="send()" >
+				<div class="panel panel-primary">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">{{ user }}</h3>
+  					</div>
+  					<div class="panel-footer">
+  						<div class="input-group">
+  							<input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2" ng-model="textbox" id="textBox">
+  							<span class="input-group-addon" id="basic-addon2">{{ givenName }}</span>
+						</div>
+  						<!--<input ng-model="textbox" id="textBox">-->
+  					</div>
+				</div>				
+			</form>				
+		</div>
+	</body>
+</html>
+
+
+	<!--	<div class="container" ng-app="WeatherApp" ng-controller="WeatherController">
+			<div class="page-header">
+  				<h1>SEGWARE <small>Desafio Frontend</small></h1>
+			</div>
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+  					<h2 class="panel-title">Previsão do Tempo</h2>
+  				</div>
+  				<div class="panel-body">
+    				<form class="form-inline" ng-submit="submitCity()">
+						<div class="form-group">
+					    	<label for="city">Cidade</label>
+					    	<input type="text" class="form-control" id="city" placeholder="Nome da cidade" ng-model="city">
+					  </div>
+					  <button type="submit" class="btn btn-primary">Ver previsão</button>
+					</form>
+  				</div>
+			</div>
+			<div class="alert alert-danger" role="alert" ng-show="showError">
+				{{errorMessage}}
+			</div>
+			<div class="panel panel-default" ng-show="showResponse">
+  				<div class="panel-heading">
+  					<h2 class="panel-title">{{name}}, {{country}}</h2>
+  				</div>
+  				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Temperatura</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{temperature}} ºC
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Temperatura Máxima</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{maxTemperature}} ºC
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Temperatura Mínima</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{minTemperature}} ºC
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Humidade</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{humidity}} %
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Pressão</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{pressure}} hPa
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-4">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+	    							<h3 class="panel-title">Velocidade do Vento</h3>
+	  							</div>
+	  							<div class="panel-body">
+	  								{{wind}} m/s
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	-->

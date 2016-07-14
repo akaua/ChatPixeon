@@ -1,0 +1,36 @@
+<html>
+	<head>
+			<link rel="stylesheet" type="text/css" href="../assets/libs/bootstrap-3.3.6-dist/css/bootstrap.css">
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<!--<meta name="google-signin-scope" content="akaua3269@gmail.com">-->
+
+	    	<meta name="google-signin-client_id" content="150680681386-ontmrute0pfnrp8kgtu5811kscepethd.apps.googleusercontent.com">
+	    	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+			<script type="text/javascript" src="../app/app.js"></script>
+			<script type="text/javascript" src="../app/controller/SignInController.js"/></script>
+			<title>Pixeon - Desafio Chat</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-header">
+					<a class="navbar-brand">Pixeon <small>Chat</small></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<a id="chat" href="chat.html" target="bodyChat" hidden>chat</a>
+					<a id="logout" href="logout.html" target="bodyChat" hidden>logout</a>
+					<!--<div class="navbar-btn g-signin2" ng-submit="onSignIn()" data-theme="dark"></div>-->
+					<div id="btIn" class="navbar-btn g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+					<div id="btOut" class="btn btn-default navbar-btn" onclick="signOut()" style="display:none;">Sign Out</div>
+					<!--<p id="nameUser">AKAUA!!!!!</p>-->
+					<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style=""></div> style="display:inline;"  style="display:none;"-->
+				</div>				
+			</nav>				
+		</div>
+	</body>
+
+
+</html>
