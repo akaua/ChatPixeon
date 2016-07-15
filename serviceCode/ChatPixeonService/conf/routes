@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+
+
+
+POST	/login						controllers.ChatControllerApplication.login()
+OPTIONS	/login						controllers.ChatControllerApplication.checkPreFlight()
+GET		/getUser					controllers.ChatControllerApplication.getUser()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
