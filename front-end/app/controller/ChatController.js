@@ -3,20 +3,13 @@ chatApp.controller( 'chat', [ 'Messages', '$scope', '$http' , '$q' ,
 	    // Message Inbox
 
 	    $scope.init = function (){
-	    	//$http.get('http://localhost:9999/getUser')
-	    	//.success(function(data){
-	    	//	console.log(data);
-	    	//}).error(function(){
-	    	//	console.log("ERRO EM GET: http://localhost:9999/getUser")
-	    	//});
+
 			var deferred = $q.defer();
 			$http({
 				method: 'GET',
 				url: 'https://chatpixeonservice.herokuapp.com/getUser',//'http://localhost:9999/getUser',
 				headers: {
 				   'Content-Type': 'application/json'//,
-				   //'Access-Control-Allow-Origin':'*',
-				   //'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type, Accept'
 				 }
 			}).then(function successCallback(response) {
 				console.log("SUCCESS CALLBACK");
@@ -40,8 +33,9 @@ chatApp.controller( 'chat', [ 'Messages', '$scope', '$http' , '$q' ,
 	  
 	    $scope.init().then(function(json){
 		    $scope.messages = [];
-		    $scope.user = json.name;
+		    $scope.userName = json.name;
 		    $scope.givenName = json.givenName;
+		    $scope.userJson = json;
 		    // Receive Messages
 		    Messages.user({ name : json.givenName });
 		    Messages.receive(function(message){
@@ -54,7 +48,31 @@ chatApp.controller( 'chat', [ 'Messages', '$scope', '$http' , '$q' ,
 		        $scope.textbox = "";
 		        //$('#textBox').focus();
 		    };
+		  
+
 	    });
+	    
+		$scope.getListUsers = function() {
+			$http({
+			method: 'GET',
+			url: 'https://chatpixeonservice.herokuapp.com/getListUsers',//'http://localhost:9999/getUser',
+			headers: {
+			   'Content-Type': 'application/json'//,
+			}
+			}).then(function successCallback(response) {
+				console.log("SUCCESS CALLBACK USERS!!!");
+				console.log(response);
+				
+				$scope.listUsers = response.data;
+			    // this callback will be called asynchronously
+			    // when the response is available
+			}, function errorCallback(response) {
+				console.log("ERROR CALLBACK USERS!!!");
+				console.log(response);
+			});
+		};
+		$scope.getListUsers();
+		
 	    
 //	    $scope.messages = [];
 
