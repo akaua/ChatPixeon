@@ -9,6 +9,10 @@
 POST	/login						controllers.ChatControllerApplication.login()
 OPTIONS	/login						controllers.ChatControllerApplication.checkPreFlight()
 GET		/getUser					controllers.ChatControllerApplication.getUser()
+POST	/logaut						controllers.ChatControllerApplication.logaut()
+OPTIONS	/logaut						controllers.ChatControllerApplication.checkPreFlight()
+GET		/getListUsers				controllers.ChatControllerApplication.getListUsers()
+GET		/cleanListUsers				controllers.ChatControllerApplication.cleanListUsers()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

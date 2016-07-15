@@ -3,19 +3,23 @@ package controllers;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import model.UserTest;
+import play.cache.Cache;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.cache.Cache;
 
 
 public class ChatControllerApplication extends Controller{
 	
-	private static final String sessionConstant = "LastUserLogin";
+	private static final String cacheConstantUser = "LastUserLogin";
+	private static final String cacheConstantGroup = "GroupUserLogin";
 //	private Cache cache;
 	
 	
@@ -24,8 +28,8 @@ public class ChatControllerApplication extends Controller{
 		 	session().put("IdUserGoogle", "AKAUA!!!!!!!!!!!!");
 		 	String jsonString = json.toString();
 		 	System.out.println(jsonString);
-		 	System.out.println(session().get(sessionConstant));
-		 	System.out.println(session().get(sessionConstant));
+		 	System.out.println(session().get(cacheConstantUser));
+		 	System.out.println(session().get(cacheConstantUser));
 		 	System.out.println(session().get("IdUserGoogle"));
 		 	//JsonNode jsonResponse = Json.parse(session().get("IdUserGoogle"));
 		 	//Http.Context.current()
@@ -36,18 +40,21 @@ public class ChatControllerApplication extends Controller{
 	 public static Result login(){
 		 try {
 			 response().setHeader("Access-Control-Allow-Origin", "*");
-		     
-			 
-			 System.out.println(request().body().asJson());
 			 
 			 JsonNode jsonUserLogin = request().body().asJson();
 			 UserTest userLogin = Json.fromJson(jsonUserLogin, UserTest.class);
+			 List<UserTest> listUsers;
+
+			 if(Cache.get(cacheConstantGroup) != null){
+				 listUsers = (ArrayList<UserTest>) Cache.get(cacheConstantGroup);
+			 }else{
+				 listUsers = new ArrayList<UserTest>();
+			 }
 			 
-			 System.out.println(userLogin.toString());
-			 Cache.set(sessionConstant, jsonUserLogin);
-			 JsonNode jsonCached = (JsonNode) Cache.get(sessionConstant);
-			 System.out.println(jsonCached.toString());
-			 
+			 listUsers.add(userLogin);
+			 Cache.set(cacheConstantGroup, listUsers);
+			 Cache.set(cacheConstantUser, jsonUserLogin);
+//			 JsonNode jsonCached = (JsonNode) Cache.get(cacheConstantUser);			 
 			 return ok(jsonUserLogin);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,8 +72,8 @@ public class ChatControllerApplication extends Controller{
 	 
 	 public static Result getUser(){
 		 response().setHeader("Access-Control-Allow-Origin", "*"); 
-		 JsonNode jsonUser = (JsonNode) Cache.get(sessionConstant);
-		 System.out.println(Cache.get(sessionConstant));
+		 JsonNode jsonUser = (JsonNode) Cache.get(cacheConstantUser);
+		 System.out.println(Cache.get(cacheConstantUser));
 		 return ok(jsonUser);
 	 }
 	 
@@ -79,18 +86,41 @@ public class ChatControllerApplication extends Controller{
 			 System.out.println(request().body().asJson());
 			 
 			 JsonNode jsonUserLogin = request().body().asJson();
-			 UserTest userLogin = Json.fromJson(jsonUserLogin, UserTest.class);
-			 
-			 System.out.println(userLogin.toString());
-			 Cache.set(sessionConstant, jsonUserLogin);
-			 JsonNode jsonCached = (JsonNode) Cache.get(sessionConstant);
-			 System.out.println(jsonCached.toString());
-			 
+			 UserTest userLogaut = Json.fromJson(jsonUserLogin, UserTest.class);
+			 List<UserTest> listUsers = (ArrayList<UserTest>) Cache.get(cacheConstantGroup);
+//			 listUsers.forEach(user -> {
+//				 if(user.givenName.equals(userLogaut.givenName)){
+//					 user = null;
+//				 }				 
+//			 });			
+			 int indexUser = 0;
+			 for (UserTest userTest : listUsers) {
+				if(userTest.id.equals(userLogaut.id)){
+					break;
+				}
+				indexUser++;
+			}
+			 listUsers.remove(indexUser);
+			 Cache.set(cacheConstantGroup, listUsers);			 
 			 return ok(jsonUserLogin);
 		} catch (Exception e) {
 			e.printStackTrace();
             return badRequest("Missing information");
 		}
+	 }
+	 
+	 public static Result getListUsers(){
+		 response().setHeader("Access-Control-Allow-Origin", "*"); 
+		 List<UserTest> listUsers = (ArrayList<UserTest>) Cache.get(cacheConstantGroup);
+		 JsonNode jsonListUser = Json.toJson(listUsers);
+		 System.out.println(jsonListUser);
+		 return ok(jsonListUser);
+	 }
+	 
+	 public static Result cleanListUsers(){
+		 response().setHeader("Access-Control-Allow-Origin", "*");
+		 Cache.set(cacheConstantGroup, new ArrayList<UserTest>());
+		 return ok("LIMPO");
 	 }
 	 
 
