@@ -19,7 +19,7 @@ function onSignIn(googleUser) {
 
    $.when(
         $.ajax({  
-                url:'http://localhost:9999/login',  
+                url:'https://chatpixeonservice.herokuapp.com/login',//'http://localhost:9999/login',  
                 type:'POST',
                 data : JSON.stringify({"givenName" : profile.getGivenName() , "name" : profile.getName() , "id" : profile.getId()}),  // "{\"name\":\"akaua\",\"id\":\"123\"}",
                 contentType : "application/json; charset:ISO-8859-1",//utf-8",   
@@ -50,9 +50,8 @@ function signOut() {
         });
 
         
-        $('#name').val(jsonData.name);  
-        $('#email').val(jsonData.email);  
-        console.log("LOGAUT REALIZADO COM SUCESSO")
+            document.getElementById('logout').click();
+            location.reload();
 
       //  $.when(
        //     $.ajax({  

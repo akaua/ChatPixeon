@@ -12,7 +12,7 @@ chatApp.controller( 'chat', [ 'Messages', '$scope', '$http' , '$q' ,
 			var deferred = $q.defer();
 			$http({
 				method: 'GET',
-				url: 'http://localhost:9999/getUser',
+				url: 'https://chatpixeonservice.herokuapp.com/getUser',//'http://localhost:9999/getUser',
 				headers: {
 				   'Content-Type': 'application/json'//,
 				   //'Access-Control-Allow-Origin':'*',
